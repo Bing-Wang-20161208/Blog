@@ -1,0 +1,29 @@
+<!-- hbs引擎 -->
+{{#each posts}}
+  <p><h2><a href="/u/{{name}}/{{time.day}}/{{title}}">{{title}}</a></h2>
+  <a href="/u/{{name}}"><img src="{{head}}" class="r_head" /></a></p>
+  <p class="info">
+    作者：<a href="/u/{{name}}">{{name}}</a> |
+    日期：{{time.minute}} |
+    标签：
+    {{#each tags}}
+      {{#if this}}
+        <a class="tag" href="/tags/{{this}}">{{this}}</a>
+      {{/if}}
+    {{/each}}
+    {{#if reprint_info.reprint_from}}
+      <br><a href="/u/{{reprint_info.reprint_from.name}}/{{reprint_info.reprint_from.day}}/{{reprint_info.reprint_from.title}}">原文链接</a>
+    {{/if}}
+  </p>
+  <p>{{{post}}}</p>
+  <p class="info">
+    阅读：{{pv}} |
+    评论：{{comments.length}} |
+    转载：
+    {{#if reprint_info.reprint_to}}
+      {{reprint_info.reprint_to.length}}
+    {{else}}
+      0
+    {{/if}}
+  </p>
+{{/each}}
