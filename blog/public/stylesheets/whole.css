@@ -1,0 +1,360 @@
+/*所有*/
+*,
+*:after,
+*::before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+
+body {
+	font-family: 'Raleway', sans-serif;
+    background: url('../images/Bg.png') repeat-x;
+}
+
+/*导航栏*/
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1366px;
+    height: 65px;
+    background-color: #003053;
+    box-shadow: 0 0 70px 35px #003053;
+}
+/*左边显示作者*/
+.userName {
+    display: inline-block;
+    width: 130px;
+    height: 65px;
+    line-height: 65px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 80px;
+    font-size: x-large;
+}
+/*搜索框*/
+.searchForm {
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    margin-left: 200px;
+}
+.search {
+    width: 100%;
+    height: 100%;
+    line-height: 50px;
+    background: none;
+    border-radius: 25px;
+    text-align: center;
+    color: #fff;
+    border-color: #0094ff;
+}
+/*右边显示导航*/
+.navBar {
+    position: absolute;
+    width: 45%;
+    top: 0;
+    right: 50px;
+}
+
+.navBar a {
+	position: relative;
+	display: inline-block;
+	margin: 15px 25px;
+	outline: none;
+	color: #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 400;
+	text-shadow: 0 0 1px rgba(0,148,255,0.3);
+	font-size: 1.35em;
+    cursor: pointer;
+}
+
+.navBar a:hover, .navBar a:focus {
+	outline: none;
+}
+.navBar a {
+	line-height: 2em;
+	-webkit-perspective: 800px;
+	-moz-perspective: 800px;
+	perspective: 800px;
+}
+
+.navBar a span {
+	position: relative;
+	display: inline-block;
+	padding: 3px 15px 0;
+	background: #02538d;
+	box-shadow: inset 0 3px #0094ff;
+	-webkit-transition: background 0.6s;
+	-moz-transition: background 0.6s;
+	transition: background 0.6s;
+	-webkit-transform-origin: 50% 0;
+	-moz-transform-origin: 50% 0;
+	transform-origin: 50% 0;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform-origin: 0% 50%;
+	-moz-transform-origin: 0% 50%;
+	transform-origin: 0% 50%;
+}
+
+.navBar a span::before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	color: #0094ff;
+	content: attr(data-hover);
+	-webkit-transform: rotateX(270deg);
+	-moz-transform: rotateX(270deg);
+	transform: rotateX(270deg);
+	-webkit-transition: -webkit-transform 0.6s;
+	-moz-transition: -moz-transform 0.6s;
+	transition: transform 0.6s;
+	-webkit-transform-origin: 0 0;
+	-moz-transform-origin: 0 0;
+	transform-origin: 0 0;
+	pointer-events: none;
+    text-align: center;
+}
+
+.navBar a:hover span,
+.navBar a:focus span {
+	background: #0094ff;
+}
+
+.navBar a:hover span::before,
+.navBar a:focus span::before {
+	-webkit-transform: rotateX(10deg);	
+	-moz-transform: rotateX(10deg);
+	transform: rotateX(10deg);
+}
+
+/*footer changePage*/
+footer, .changePage {
+    text-align: center;
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+footer {
+    box-shadow: 0 0 70px 35px #003053;
+    background-color: #003053;
+    color: #fff;
+    padding: 15px;
+}
+footer div {
+    margin: 10px;
+}
+.changePage .prepage{
+    margin-right: 20px;
+}
+
+/*framework*/
+.framework {
+    margin: 120px 300px;
+    min-height:500px;
+    _height:expression((document.documentElement.clientHeight||document.body.clientHeight)>500?"500px":"");
+}
+
+/*headImg*/
+.headImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+/*tag backlinks edit*/
+.backLinks, .tag, .edit {
+    display: inline-block;
+    min-width: 30px;
+    height: 20px;
+    border: 1px solid #0094ff;
+    border-radius: 5px;
+    text-align: center;
+}
+.backLinks:hover, .tag:hover, .edit:hover {
+    background-color: #0094ff;
+}
+
+/*postText*/
+.postText {
+    margin-bottom: 60px;
+}
+
+/*index.jsx user.jsx*/
+.content {
+    width: 100%;
+}
+.content a, .content span {
+    margin-right: 15px;
+}
+.content .boundary {
+    width: 100%;
+    height: 1px;
+    border: 1px solid rgb(0, 48, 83);
+    margin: 25px auto;
+}
+.content .postTime {
+    color: #666;
+}
+.content .postInfo {
+    width: 100%;
+    height: 150px;
+    margin: 10px auto;
+}
+.content .postText {
+    height: 100px;
+    width: 100%;
+    word-wrap: break-word; 
+    word-break: break-all;
+    overflow: hidden;
+}
+
+/*icon*/
+.glyphicon {
+    margin-right: 0!important;
+}
+
+/*archive*/
+.archive {
+    list-style: none;
+}
+.archive .spec {
+    text-indent: 2em;
+}
+
+/*article*/
+.articleInfo {
+    margin: 40px 0;
+    overflow: hidden;
+}
+.articleInfo .left {
+    width: 400px;
+}
+.articleInfo .headImg {
+    float: left;
+    display: inline-block;
+}
+.articleInfo .author {
+    margin-left: 60px;
+    font-size: 20px;
+    display: block;
+}
+.articleInfo .left span {
+    margin: 0 0 0 5px;
+    display: inline-block;
+    font-size: 10px;
+}
+.articleInfo .left .postTime {
+    margin-left: 20px;
+}
+.articleInfo .right .edit {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    width: 70px;
+    margin: 10px 0 0 5px;
+}
+.articlePostText {
+    width: 100%;
+    word-wrap: break-word; 
+    word-break: break-all;
+    margin-bottom: 60px;
+}
+
+/*comment*/
+.commentForm .oldComment {
+    padding-left: 2em;
+    border-bottom: 1px solid #999;
+    margin: 10px 0;
+}
+.commentForm .oldComment img {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+}
+.commentForm .oldComment a {
+    display: inline-block;
+    margin: 0 5px;
+}
+.commentForm .oldComment i {
+    margin: 0 5px;
+    font-style: normal;
+}
+.commentForm .oldComment .commentText {
+    text-indent: 2em;
+    word-wrap: break-word; 
+    word-break: break-all;
+}
+.comment {
+    margin-top: 50px;
+}
+.comment input {
+    background: none;
+    width: 100px;
+    border-radius: 10px;
+    margin: 0 40px 10px 0;
+}
+.comment input:last-child {
+    width: 150px;
+}
+.commentForm textarea, .editPage textarea {
+    background: none;
+}
+.commentForm button, .editPage button {
+    display: block;
+    width: 80px;
+    height: 40px;
+    margin-top: 10px;
+    background-color: #0094ff;
+    border: none;
+}
+
+/*edit.jsx*/
+.editPage {
+    font-size: 20px;
+}
+.editPage input[disabled] {
+    text-align: center;
+    background: none;
+    border: none;
+    display: block;
+    margin: 20px;
+    color: #666;
+}
+.editPage input.tag {
+    display: inline-block;
+    margin-right: -90px;
+}
+.editPage button {
+    width: 150px;
+    height: 50px;
+}
+.ke-container {
+    width: 800px;
+}
+
+/*post.jsx*/
+.post button {
+    background-color: #fff;
+    display: block;
+    width: 80px;
+    height: 40px;
+    margin-top: 10px;
+}

@@ -30,7 +30,7 @@ module.exports = function(app) {
         posts: posts,
         page: page,
         isFirstPage: (page - 1) == 0,
-        isLastPage: ((page-1) * 10 + posts.length) == total,
+        isLastPage: ((page - 1) * 10 + posts.length) == total,
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
       });
@@ -145,46 +145,8 @@ module.exports = function(app) {
     req.flash('success', '登出成功！');
     res.redirect('/');//登出成功后跳转到主页
   });
-  app.get('/upload', checkLogin);
-  app.get('/upload', function(req, res) {
-    res.render('upload', {
-      title: '文件上传',
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
-    });
-  });
-  app.post('/upload', checkLogin);
-  app.post('/upload', function(req, res) {
-    req.flash('success', '文件上传成功！');
-    res.redirect('/upload');
-  });
   //用户存档信息的路由规则
-  /*//hbs引擎
-  app.get('/archive', function(req, res) {
-    Post.getArchive(function(err, posts) {
-      if (err) {
-        req.flash('error', err);
-        return res.redirect('/');
-      }
-      res.render('archive', {
-        title: '存档',
-        posts: posts,
-        user: req.session.user,
-        success: req.flash('success').toString(),
-        error: req.flash('error').toString(),
-        helpers: {
-          showYear: function(index, options) {
-            if ((index == 0) || (posts[index].time.year != posts[index - 1].time.year)) {
-              return options.fn(this);
-            }
-          }
-        }
-      });
-    });
-  });
-  */
-  //ejs引擎
+  //JSX引擎
   app.get('/archive', function(req, res) {
     Post.getArchive(function(err, posts) {
       if (err) {
@@ -198,46 +160,6 @@ module.exports = function(app) {
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
       });
-    });
-  });
-  //给博客增加标签页
-  app.get('/tags', function(req, res) {
-    Post.getTags(function(err, posts) {
-      if (err) {
-        req.flash('error', err);
-        return res.redirect('/');
-      }
-      res.render('tags', {
-        title: '标签',
-        posts: posts,
-        user: req.session.user,
-        success: req.flash('success').toString(),
-        error: req.flash('error').toString()
-      });
-    });
-  });
-  app.get('/tags/:tag', function(req, res) {
-    Post.getTag(req.params.tag, function(err, posts) {
-      if (err) {
-        req.flash('error', err);
-        return res.redirect('/');
-      }
-      res.render('tag', {
-        title: 'TAG:' + req.params.tag,
-        posts: posts,
-        user: req.session.user,
-        success: req.flash('success').toString(),
-        error: req.flash('error').toString()
-      });
-    });
-  });
-  //友情链接
-  app.get('/links', function(req, res) {
-    res.render('links', {
-      title: "友情链接",
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
     });
   });
   //文章检索
@@ -257,7 +179,7 @@ module.exports = function(app) {
     });
   });
   //用户页面的路由规则
-  app.get('/u/:name', function(req, res) {//路由，用来处理访问用户页的请求,然后从数据库取得用户的数据并渲染user.ejs，生成页面显示给用户
+  app.get('/u/:name', function(req, res) {//路由，用来处理访问用户页的请求,然后从数据库取得用户的数据并渲染user.jsx，生成页面显示给用户
     var page = req.query.p ? parseInt(req.query.p) : 1;
     //检查用户是否存在
     User.get(req.params.name, function(err, user) {
@@ -285,14 +207,14 @@ module.exports = function(app) {
     });
   });
   //文章页面的路由规则
-  app.get('/p/:_id', function(req, res) {
-    Post.getOne(req.params._id, function(err, post) {
+  app.get('/u/:name/:day/:title', function (req, res) {
+    Post.getOne(req.params.name, req.params.day, req.params.title, function (err, post) {
       if (err) {
-        req.flash('error', err);
+        req.flash('error', err); 
         return res.redirect('/');
       }
       res.render('article', {
-        title: post.title,
+        title: req.params.title,
         post: post,
         user: req.session.user,
         success: req.flash('success').toString(),
@@ -374,7 +296,7 @@ module.exports = function(app) {
     Post.edit(req.params.name, req.params.day, req.params.title, function(err, post) {
       if (err) {
         req.flash('error', err);
-        return res.redirect(back);
+        return res.redirect('back');
       }
       var currentUser = req.session.user,
           reprint_from = {
@@ -392,9 +314,8 @@ module.exports = function(app) {
           return res.redirect('back');
         }
         req.flash('success', '转载成功！');
-        //地址取值有问题？？？？？？？？？
-        var url = encodeURI('/');
-        //跳转到转载后的文章页面
+        //跳转到转载后的返回到当前用户页主页
+        var url = encodeURI('/u/' + reprint_to.name);
         res.redirect(url);
       });
     });
@@ -402,13 +323,14 @@ module.exports = function(app) {
   //增加404页面
   app.use(function(req, res) {
     res.render("404");
-  })
+  });
+  //检测用户是否登录，以控制权限
   function checkLogin(req, res, next) {
     if (!req.session.user) {
       req.flash('error', '未登录！');
       res.redirect('/login');
     }
-    next();
+    next();//转移控制权,检测到未登录则跳转到登陆页，已登录则跳转至前一个页面
   }
   function checkNotLogin(req, res, next) {
     if (req.session.user) {

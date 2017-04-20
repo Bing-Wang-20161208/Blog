@@ -1,3 +1,4 @@
-mongodb/*
+mongodb/
 kindeditor-v4.1.7.zip
 mongodb-win32-x86_64-2008plus-ssl-3.4.2-signed.msi
+blog/node_modules

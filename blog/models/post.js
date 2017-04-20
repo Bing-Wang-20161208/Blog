@@ -1,27 +1,5 @@
-var ObjectID = require('mongodb').ObjectID;//使用ID检索，避免同名bug
 var mongodb = require('./db');
-//var markdown = require('markdown').markdown;//kindEditor代替
-/*//数据库连接池
-var Db = require('./db');
-//var markdown = require('markdown').markdown;
-var poolModule = require('generic-pool');
-var pool = poolModule.createPool({//创建了一个数据库连接池
-  name: 'mongoPool',//连接池名字
-  create: function(callback) {//创建一条数据库连接的方法，并返回创建的连接
-    var mongodb = Db();
-    mongodb.open(function(err, db) {
-      callback(err, db);
-    })
-  },
-  destroy: function(mongodb) {//如何销毁连接
-    mongodb.close()
-  },
-  max: 10000,//连接池中最大连接数
-  min: 0,//连接池中最小连接数
-  idleTimeoutMillis: 30000,//不活跃连接销毁的毫秒数
-  log: true//打印连接池日志
-});
-*/
+
 function Post(name, head, title, tags, post) {
   this.name = name;
   this.head = head;
@@ -75,40 +53,6 @@ Post.prototype.save = function(callback) {
     });
   });
 };
-/*
-//读取文章及其相关信息
-Post.getAll = function(name, callback) {
-  //打开数据库
-  mongodb.open(function(err, db) {
-    if (err) {
-      return callback(err);
-    }
-    //读取posts集合
-    db.collection('posts', function(err, collection) {
-      if (err) {
-        mongodb.close()
-        return callback(err);
-      }
-      var query = {};
-      if (name) {
-        query.name = name;
-      }
-      //根据query对象查询文章
-      collection.find(query).sort({time: -1}).toArray(function(err, docs) {
-        mongodb.close()
-        if (err) {
-          return callback(err);//失败，返回err
-        }
-        //解析markdown为html
-        docs.forEach(function(doc) {
-          doc.post = markdown.toHTML(doc.post);
-        })
-        callback(null, docs);//成功，以数组形式返回查询的结果
-      });
-    });
-  });
-};
-*/
 //给博客的主页和用户页面增加分页功能
 //一次获取十篇文章
 Post.getTen = function(name, page, callback) {
@@ -140,11 +84,6 @@ Post.getTen = function(name, page, callback) {
           if (err) {
             return callback(err);
           }
-          /*//解析markdown为HTML
-          docs.forEach(function(doc) {
-            doc.post = markdown.toHTML(doc.post);
-          });
-          */
           callback(null, docs, total);
         });
       });
@@ -152,7 +91,7 @@ Post.getTen = function(name, page, callback) {
   });
 };
 //获取一篇文章
-Post.getOne = function(_id, callback) {
+Post.getOne = function(name, day, title, callback) {
   //打开数据库
   mongodb.open(function(err, db) {
     if (err) {
@@ -166,7 +105,9 @@ Post.getOne = function(_id, callback) {
       }
       //根据用户名、发表日期及文章名进行查询
       collection.findOne({
-        "_id": new ObjectID(_id)
+        "name": name,
+        "time.day": day,
+        "title": title
       }, function(err, doc) {
         if (err) {
           mongodb.close()
@@ -175,7 +116,9 @@ Post.getOne = function(_id, callback) {
         if (doc) {
           //每访问1次，pv值增加1
           collection.update({
-            "_id": new ObjectID(_id)
+            "name": name,
+            "time.day": day,
+            "title": title
           }, {
             $inc: {"pv": 1}
           }, function(err) {

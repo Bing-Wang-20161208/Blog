@@ -14,9 +14,8 @@ var flash = require('connect-flash');//通知信息
 var session = require('express-session');//会话信息
 var MongoStore = require('connect-mongo')(session);//连接数据库
 var multer = require('multer');//上传文件
-//var users = require('./routes/users');
-//var exphbs = require('express-handlebars');//handlebars模板
 
+//每一次的请求信息会同时显示在命令行和保存在access.log文件中，还有错误信息
 var fs = require('fs');
 var accessLog = fs.createWriteStream('access.log', {flags: 'a'});
 var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
@@ -24,25 +23,22 @@ var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
 var app = express();//生成一个express实例
 
 app.set('port', process.env.PORT || 3001);
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));//设置views文件夹为存放视图文件的目录
-app.set('view engine', 'ejs');//设置视图模板引擎为ejs
-//模板引擎修改为：
-/*//handlebars模板
-app.engine('hbs', exphbs({
-  layoutsDir: 'views1-hbs',//设置模板布局文件的目录为views文件夹
-  defaultLayout: 'layout',//设置默认的页面布局模板为layout.hbs文件，跟Express2.x中的layout.ejs作用类似
-  extname: '.hbs'//模板文件后缀名，自定义
-}));
-app.set('view engine', 'hbs');
-*/
+app.set('views', path.join(__dirname, 'views'));//设置views文件夹为存放视图文件的目录，dirname为全局变量，存储当前正在执行的脚本所在的目录
+//设置视图模板引擎为jsx，从而引入react
+app.set('view engine', 'jsx');
+var options = { //jsx engine相关设置
+    beautify: true    //美化代码
+};
+app.engine('jsx', require('express-react-views').createEngine(options));
+
 app.use(flash());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));//设置/public/favicon.ico为favicon图标
 app.use(logger('dev'));//加载日志中间件
-
-app.use(logger({stream: accessLog}));
+app.use(logger({stream: accessLog}));//将日志保存为日志文件
 
 app.use(bodyParser.json());//加载解析json的中间件
 app.use(bodyParser.urlencoded({ extended: false }));//加载解析urlencoded请求体的中间件
@@ -73,10 +69,11 @@ app.use(multer({
     return filename;
   }
 }));
+
 //路由控制器
 //app.use('/', index);
 //app.use('/users', users);
-index(app);
+index(app); //调用 index.js 导出的函数
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

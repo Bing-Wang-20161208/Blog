@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 var mongodb = require('./db');
-var async = require('async');
+//var async = require('async'); 异步编程类库， 解决无限回调问题
 
 function User(user) {
   this.name = user.name;
@@ -22,7 +22,7 @@ User.prototype.save = function(callback) {
     email: this.email,
     head: head
   };
-  //async异步处理无限回调问题
+  /*//async异步处理无限回调问题
   async.waterfall([
     function(cb) {
       mongodb.open(function(err, db) {
@@ -44,8 +44,8 @@ User.prototype.save = function(callback) {
   ], function(err, user) {
     mongodb.close()
     callback(err, user[0]);
-  });
-  /*以上时替代无限回调问题的解决方式
+  });*/
+  //以上时替代无限回调问题的解决方式
   //打开数据库
   mongodb.open(function(err, db) {
     if (err) {
@@ -69,12 +69,11 @@ User.prototype.save = function(callback) {
       });
     });
   });
-  */
 };
 
 //读取用户信息
 User.get = function(name, callback) {
-  //async异步处理无限回调问题
+  /*//async异步处理无限回调问题
   async.waterfall([
     function(cb) {
       mongodb.open(function(err, db) {
@@ -96,8 +95,8 @@ User.get = function(name, callback) {
   ], function(err, user) {
     mongodb.close()
     callback(err, user);
-  });
-  /*//callback hell
+  });*/
+  //callback hell
   //打开数据库
   mongodb.open(function(err, db) {
     if (err) {
@@ -121,5 +120,4 @@ User.get = function(name, callback) {
       });
     });
   });
-  */
 };
