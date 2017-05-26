@@ -192,11 +192,6 @@ footer div {
     background-color: #0094ff;
 }
 
-/*postText*/
-.postText {
-    margin-bottom: 60px;
-}
-
 /*index.jsx user.jsx*/
 .content {
     width: 100%;
@@ -218,8 +213,8 @@ footer div {
     height: 150px;
     margin: 10px auto;
 }
-.content .postText {
-    height: 100px;
+.content .postInfo div {
+    height: 106px;
     width: 100%;
     word-wrap: break-word; 
     word-break: break-all;

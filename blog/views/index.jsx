@@ -24,9 +24,9 @@ class Index extends React.Component {
                         </div>
                         <div className="otherInfo">
                             {post.tags.map((tag, index) => tag ? <span className="tag" key={'indexTag' + index}>{tag}</span> : '')}
-                            <span className="readNum"><span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {post.pv}</span>
-                            <span className="commentNum"><span className="glyphicon glyphicon-comment" aria-hidden="true"></span> {post.comments.length}</span>
-                            <span className="reprintNum"><span className="glyphicon glyphicon-share-alt" aria-hidden="true"></span> {post.reprint_info.reprint_to ?  post.reprint_info.reprint_to.length : 0}</span>
+                            <span className="readNum" title="阅读量"><span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {post.pv}</span>
+                            <span className="commentNum" title="评论数"><span className="glyphicon glyphicon-comment" aria-hidden="true"></span> {post.comments.length}</span>
+                            <span className="reprintNum" title="转载数"><span className="glyphicon glyphicon-share-alt" aria-hidden="true"></span> {post.reprint_info.reprint_to ?  post.reprint_info.reprint_to.length : 0}</span>
                         </div>
                     </div>);
                 })

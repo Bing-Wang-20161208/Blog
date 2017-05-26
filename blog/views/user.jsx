@@ -26,7 +26,7 @@ class User extends React.Component {
                                 </div>
                                 <div className="otherInfo">
                                     {post.tags.map((tag, index) => tag ? <span className="tag" key={'indexTag' + index}>{tag}</span> : '')}
-                                    <span className="readNum"><span className="glyphicon glyphicon-eye-open" aria-hidden="true" title="浏览人数"></span> {post.pv}</span>
+                                    <span className="readNum"><span className="glyphicon glyphicon-eye-open" aria-hidden="true" title="浏览量"></span> {post.pv}</span>
                                     <span className="commentNum"><span className="glyphicon glyphicon-comment" aria-hidden="true" title="评论数"></span> {post.comments.length}</span>
                                     <span className="reprintNum"><span className="glyphicon glyphicon-share-alt" aria-hidden="true" title="转载数"></span> {post.reprint_info.reprint_to ?  post.reprint_info.reprint_to.length : 0}</span>
                                 </div>

@@ -1,11 +1,11 @@
-# Blog
+﻿# Blog
 简易的多人博客系统
 
 ## 环境
 Node.js (Express), MongoDB, React
 
 ## 该博客本地搭建使用说明（windows）
-1. npm clone.... 或者直接下载到本地硬盘
+1. git clone https://github.com/Bing-Wang-20161208/Blog.git (需要配置git环境) 或者直接下载到本地硬盘
 2. 进入到项目内部跟目录，package.json 同级目录，然后 npm install -g express-generator , npm install
 3. 官网下载 mongodb 解压并改名为mongodb 在项目外层，同项目级层相同位置。进入到 mongodb 文件夹新建 blog 文件夹作为数据库博客信息存储文件夹
 4. 连接数据库: (/mongodb/bin/中) mongod --dbpath ../blog/

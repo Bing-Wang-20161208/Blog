@@ -10,7 +10,7 @@ class Login extends React.Component {
                 <head>
                     <meta charSet="utf-8" />
                     <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-                    <title></title>
+                    <title>登录</title>
                     <meta name="description" content="" />
                     <meta name="viewport" content="width=device-width" />
                     <link rel="stylesheet" href="stylesheets/bootstrap.min.css"/>

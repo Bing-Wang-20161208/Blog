@@ -10,7 +10,7 @@ class Registry extends React.Component {
                 <head>
                     <meta charSet="utf-8" />
                     <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-                    <title></title>
+                    <title>注册</title>
                     <meta name="description" content="" />
                     <meta name="viewport" content="width=device-width" />
                     <link rel="stylesheet" href="stylesheets/bootstrap.min.css"/>
@@ -32,6 +32,7 @@ class Registry extends React.Component {
                                 <button type="submit">注册</button>
                             </div>
                         </form>
+						<p>头像来自于 <a href="http://en.gravatar.com/">Qravatar</a> 网站注册时的头像，该处邮箱与 <a href="http://en.gravatar.com/">Gravatar</a> 相同即可</p>
                         <a href="/login" title="login">有号，去登陆。。。</a>
                     </div>
                 </body>
